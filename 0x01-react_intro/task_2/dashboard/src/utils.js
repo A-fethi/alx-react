@@ -14,3 +14,7 @@ export function getFooterCopy(isIndex) {
 
     return footerText;
 }
+
+export function getLatestNotification() {
+    return "<strong>Urgent requirement</strong> - complete by EOD";
+}
