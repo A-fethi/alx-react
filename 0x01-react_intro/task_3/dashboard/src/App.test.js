@@ -1,8 +1,24 @@
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import App from './App';
+import { shallow } from 'enzyme';
 
-test('renders learn react link', () => {
+test('renders without crashing', () => {
   render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
 });
+
+describe('<App />', () => {
+  it('renders a div with the class App-header', () => {
+    const wrapper = shallow(<App />);
+    expect(wrapper.find('div.App-header').exists()).toBe(true);
+  });
+
+  it('renders a div with the class App-body', () => {
+    const wrapper = shallow(<App />);
+    expect(wrapper.find('div.App-body').exists()).toBe(true);
+  });
+
+  it('renders a div with the class App-footer', () => {
+    const wrapper = shallow(<App />);
+    expect(wrapper.find('div.App-footer').exists()).toBe(true);
+  });
+})
