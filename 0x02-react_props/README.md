@@ -39,7 +39,7 @@ Read or watch:
 - [React Developer Tools](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi)
 - [Enzyme](https://enzymejs.github.io/enzyme/docs/api/shallow.html)
 - [React Fragments](https://react.dev/reference/react/Fragment)
--[Typechecking with PropTypes](https://legacy.reactjs.org/docs/typechecking-with-proptypes.html)
+- [Typechecking with PropTypes](https://legacy.reactjs.org/docs/typechecking-with-proptypes.html)
 
 ---
 
