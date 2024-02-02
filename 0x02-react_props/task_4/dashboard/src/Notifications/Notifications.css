@@ -1,0 +1,12 @@
+div .Notifications {
+    border: 3px dotted #e01d3f;
+    padding: 10px;
+}
+
+[data-notification-type='default'] {
+    color: blue;
+}
+
+[data-notification-type='urgent'] {
+    color: red;
+}
