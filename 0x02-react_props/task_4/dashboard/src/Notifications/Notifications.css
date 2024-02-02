@@ -1,6 +1,9 @@
 div .Notifications {
     border: 3px dotted #e01d3f;
     padding: 10px;
+    position: absolute;
+    width: 30%;
+    right: 3px;
 }
 
 [data-notification-type='default'] {
@@ -9,4 +12,9 @@ div .Notifications {
 
 [data-notification-type='urgent'] {
     color: red;
+}
+
+.menuItem {
+    text-align: right;
+    padding-right: 5px;
 }

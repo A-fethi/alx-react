@@ -1,8 +1,8 @@
 import React from 'react';
-import Proptypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 
-export default function CourseListRow({ isHeader = false, textFirstCell, textSecondCell = null }) {
+export default function CourseListRow({ isHeader, textFirstCell, textSecondCell }) {
     if(isHeader) {
         if(textSecondCell === null) {
             return (
@@ -29,3 +29,14 @@ export default function CourseListRow({ isHeader = false, textFirstCell, textSec
         );
     }
 }
+
+CourseListRow.propTypes = {
+    isHeader: PropTypes.bool,
+    textFirstCell: PropTypes.string.isRequired,
+    textSecondCell: PropTypes.string,
+};
+
+CourseListRow.defaultProps = {
+    isHeader: false,
+    textSecondCell: null,
+};

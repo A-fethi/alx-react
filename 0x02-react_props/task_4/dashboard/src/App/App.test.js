@@ -4,7 +4,8 @@ import { shallow } from 'enzyme';
 import Notifications from '../Notifications/Notifications';
 import Header from '../Header/Header';
 import Login from '../Login/Login';
-import Footer from '../Footer/footer';
+import Footer from '../Footer/Footer';
+import CourseList from '../CourseList/CourseList';
 
 describe('<App />', () => {
   it('renders without crashing', () => {
@@ -31,18 +32,18 @@ describe('<App />', () => {
     expect(wrapper.find(Footer)).toHaveLength(1);
   });
 
-  // it('renders a div with the class App-header', () => {
-  //   const wrapper = shallow(<App />);
-  //   expect(wrapper.find('div.App-header').exists()).toBe(true);
-  // });
+  it('does not display CoursList when isLoggedIn is false', () => {
+    const wrapper = shallow(<App />);
+    expect(wrapper.find(CourseList)).toHaveLength(0);
+  });
 
-  // it('renders a div with the class App-body', () => {
-  //   const wrapper = shallow(<App />);
-  //   expect(wrapper.find('div.App-body').exists()).toBe(true);
-  // });
+  it('does not include the Login component when isLoggedIn is true', () => {
+    const wrapper = shallow(<App isLoggedIn={true} />);
+    expect(wrapper.find(Login)).toHaveLength(0);
+  });
 
-  // it('renders a div with the class App-footer', () => {
-  //   const wrapper = shallow(<App />);
-  //   expect(wrapper.find('div.App-footer').exists()).toBe(true);
-  // });
+  it('includes the CourseList component when isLoggedIn is true', () => {
+    const wrapper = shallow(<App isLoggedIn={true} />);
+    expect(wrapper.find(CourseList)).toHaveLength(1);
+  });
 });
