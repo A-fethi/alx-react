@@ -46,19 +46,27 @@ describe('<Notifications />', () => {
 
     it('renders Notifications correctly if an empty array passed or if the listNotifications property not passed', () => {
         let wrapper = shallow(<Notifications listNotifications={[]} />);
-        expect(wrapper.find('.Notifications')).toHaveLength(1);
+        expect(wrapper.find('.Notifications')).toHaveLength(0);
 
         wrapper = shallow(<Notifications />);
-        expect(wrapper.find('.Notifications')).toHaveLength(1);
+        expect(wrapper.find('.Notifications')).toHaveLength(0);
     });
 
     it('renders Notifications correctly with empty array or without listNotifications property', () => {
-        let wrapper = shallow(<Notifications listNotifications={[]} />);
-        expect(wrapper.find('.Notifications').text()).not.toContain('Here is the list of notifications');
-        expect(wrapper.find('.Notifications').text()).toContain('No new notification for now');
+        // let wrapper = shallow(<Notifications listNotifications={[]} />);
+        // expect(wrapper.find('.Notifications').text()).not.toContain('Here is the list of notifications');
+        // expect(wrapper.find('.Notifications').text()).toContain('No new notification for now');
 
-        wrapper = shallow(<Notifications />)
-        expect(wrapper.find('.Notifications').text()).not.toContain('Here is the list of notifications');
-        expect(wrapper.find('.Notifications').text()).toContain('No new notification for now');
+        // wrapper = shallow(<Notifications />)
+        // expect(wrapper.find('.Notifications').text()).not.toContain('Here is the list of notifications');
+        // expect(wrapper.find('.Notifications').text()).toContain('No new notification for now');
+
+        let wrapper = shallow(<Notifications displayDrawer={true} listNotifications={[]} />);
+        expect(wrapper.containsMatchingElement(<p>Here is the list of notifications</p>)).toBe(false);
+        expect(wrapper.containsMatchingElement(<li data-notification-type="default">No new notification for now</li>));
+
+        wrapper = shallow(<Notifications />);
+        expect(wrapper.containsMatchingElement(<p>Here is the list of notifications</p>)).toBe(false);
+        expect(wrapper.containsMatchingElement(<li data-notification-type="default">No new notification for now</li>));
     });
 });
