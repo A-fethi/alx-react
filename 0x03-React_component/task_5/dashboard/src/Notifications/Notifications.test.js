@@ -4,11 +4,16 @@ import { getLatestNotification } from '../utils/utils';
 import Notifications from './Notifications';
 import { shallow } from 'enzyme';
 
-test('renders without crashing', () => {
-    render(<Notifications />);
-});
+// test('renders without crashing', () => {
+//     render(<Notifications />);
+// });
 
 describe('<Notifications />', () => {
+    it('renders without crashing', () => {
+        const wrapper = shallow(<Notifications />);
+        expect(wrapper).toBeDefined();
+    });
+
     it('renders three list items', () => {
         const notifications = [
             { id: 1, type: 'default', value: 'New course available' },
@@ -77,5 +82,33 @@ describe('<Notifications />', () => {
         instance.markAsRead(1);
         expect(console.log).toHaveBeenCalledWith('Notification 1 has been marked as read');
         console.log.mockRestore();
+    });
+
+    it('should not rerender when updating with the same list', () => {
+        const listNotifications = [
+            { id: 1, type: "default", value: "New course available" },
+            { id: 2, type: "urgent", value: "New resume available" },
+            { id: 3, type: "urgent", html: getLatestNotification() },
+        ];
+        const wrapper = shallow(<Notifications listNotifications={listNotifications} />);
+        const instance = wrapper.instance();
+        expect(instance.shouldComponentUpdate({ listNotifications })).toBe(false);
+    });
+
+    it('should rerender when updating with a longer list', () => {
+        const listNotifications = [
+            { id: 1, type: "default", value: "New course available" },
+            { id: 2, type: "urgent", value: "New resume available" },
+            { id: 3, type: "urgent", html: getLatestNotification() },
+        ];
+
+        const updatedList = [
+            { id: 1, type: "default", value: "New course available" },
+            { id: 2, type: "urgent", value: "New resume available" },
+            { id: 3, type: "urgent", html: getLatestNotification() },
+            { id: 4, type: "default", value: "Foo" },
+        ];
+        const wrapper = shallow(<Notifications displayDrawer={true} listNotifications={listNotifications} />);
+        expect(wrapper.instance().shouldComponentUpdate(updatedList)).toBe(true);
     });
 });

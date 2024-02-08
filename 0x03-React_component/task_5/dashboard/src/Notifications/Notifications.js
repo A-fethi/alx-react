@@ -4,7 +4,6 @@ import closeIcon from './close-icon.png';
 import NotificationItem from './NotificationItem';
 import PropTypes from 'prop-types';
 import NotificationItemShape from './NotificationItemShape';
-import isEqual from 'lodash/isEqual';
 
 
 export default class Notifications extends Component {
