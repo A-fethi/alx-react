@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import './Notifications.css';
 import closeIcon from './close-icon.png';
-import { getLatestNotification } from '../utils/utils';
 import NotificationItem from './NotificationItem';
-import PropTypes, { bool } from 'prop-types';
+import PropTypes from 'prop-types';
 import NotificationItemShape from './NotificationItemShape';
+import isEqual from 'lodash/isEqual';
 
-// export default function Notifications({ displayDrawer, listNotifications }) {
 
 export default class Notifications extends Component {
     constructor(props) {
@@ -21,6 +20,10 @@ export default class Notifications extends Component {
     markAsRead = (id) => {
         console.log(`Notification ${id} has been marked as read`);
     };
+
+    shouldComponentUpdate(nextProps) {
+        return nextProps.length > this.props.listNotifications.length;
+    }
 
     render() {
         const { displayDrawer, listNotifications } = this.props;
