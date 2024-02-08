@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 
-const WithLogging = WrappedComponent => {
+const WithLogging = (WrappedComponent) => {
     class WithLoggingComponent extends Component {
         componentDidMount() {
-            console.log(`Component ${this.getComponentName()} is mounted on componentDidMount()`);
+            console.log(`${this.getComponentName()} is mounted`);
         }
 
         componentWillUnmount() {
-            console.log(`Component ${this.getComponentName()} is going to unmount on componentWithUnmount()`);
+            console.log(`${this.getComponentName()} is going to unmount`);
         }
 
         getComponentName() {
@@ -19,7 +19,7 @@ const WithLogging = WrappedComponent => {
         }
     }
 
-    WithLoggingComponent.displayName = `WithLogging(${WithLoggingComponent.getComponentName()})`;
+    WithLoggingComponent.displayName = `WithLogging(${WithLoggingComponent.name || 'Component'})`;
     return WithLoggingComponent;
 };
 
