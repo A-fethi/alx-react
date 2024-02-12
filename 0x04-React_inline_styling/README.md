@@ -67,7 +67,7 @@ v12.22.1
 
 ## Files :card_file_box:
 
-### [0. Inline styling](./task_0/dashboard/dashboard/src/CourseList/)
+### [0. Inline styling](./task_0/dashboard/src/CourseList/)
 
 ### [1. install Aphrodite](./task_1/dashboard/src/)
 
