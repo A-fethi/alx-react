@@ -71,7 +71,7 @@ v12.22.1
 
 ### [1. install Aphrodite](./task_1/dashboard/src/)
 
-### [2. Conditionally applying style (Notiications Folder)](./task_2/dashboard/src/Notifications/)
+### [2. Conditionally applying style (Notifications Folder)](./task_2/dashboard/src/Notifications/)
 
 ### [2. Conditionally applying style (CourseList Folder)](./task_2/dashboard/src/CourseList/)
 
