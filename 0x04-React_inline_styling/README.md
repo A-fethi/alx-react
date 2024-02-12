@@ -71,12 +71,12 @@ v12.22.1
 
 ### [1. install Aphrodite](./task_1/dashboard/src/)
 
-### [2. Conditionally applying style](./task_2/dashboard/src/Notifications/)
+### [2. Conditionally applying style (Notiications Folder)](./task_2/dashboard/src/Notifications/)
 
-### [2. Conditionally applying style](./task_2/dashboard/src/CourseList/)
+### [2. Conditionally applying style (CourseList Folder)](./task_2/dashboard/src/CourseList/)
 
-### [3. Responsive design](./task_3/dashboard/src/Login/)
+### [3. Responsive design (Login Folder)](./task_3/dashboard/src/Login/)
 
-### [3. Responsive design](./task_3/dashboard/src/Notifications/)
+### [3. Responsive design (Notifications Folder)](./task_3/dashboard/src/Notifications/)
 
 ### [4. Animation](./task_4/dashboard/src/Notifications/Notifications.js)
