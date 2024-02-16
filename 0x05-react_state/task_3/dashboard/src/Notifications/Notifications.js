@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import closeIcon from './close-icon.png';
 import NotificationItem from './NotificationItem';
 import PropTypes from 'prop-types';
@@ -66,27 +66,22 @@ const styles = StyleSheet.create({
 });
 
 
-export default class Notifications extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {};
-    }
-
+export default class Notifications extends PureComponent {
     ButtonClick = () => {
         console.log('Close button has been clicked');
         this.props.handleHideDrawer();
     };
 
-    markAsRead = (id) => {
-        console.log(`Notification ${id} has been marked as read`);
-    };
+    // markAsRead = (id) => {
+    //     console.log(`Notification ${id} has been marked as read`);
+    // };
 
-    shouldComponentUpdate(nextProps) {
-        return nextProps.length > this.props.listNotifications.length;
-    }
+    // shouldComponentUpdate(nextProps) {
+    //     return nextProps.length > this.props.listNotifications.length;
+    // }
 
     render() {
-        const { displayDrawer, listNotifications, handleDisplayDrawer } = this.props;
+        const { displayDrawer, listNotifications, handleDisplayDrawer, markNotificationAsRead } = this.props;
         return (
             <>
                 <div className={css(styles.menuItem)} onClick={handleDisplayDrawer}>
@@ -105,7 +100,7 @@ export default class Notifications extends Component {
                                                     type={type}
                                                     value={value}
                                                     html={html}
-                                                    markAsRead={() => this.markAsRead(id)}
+                                                    markAsRead={() => markNotificationAsRead(id)}
                                                 />
                                         ))}
                                     </ul>
@@ -141,10 +136,12 @@ Notifications.propTypes = {
     listNotifications: PropTypes.arrayOf(NotificationItemShape),
     handleDisplayDrawer: PropTypes.func,
     handleHideDrawer: PropTypes.func,
+    markNotificationAsRead: PropTypes.func,
 };
 Notifications.defaultProps = {
     displayDrawer: false,
     listNotifications: [],
     handleDisplayDrawer: () => {},
     handleHideDrawer: () => {},
+    markNotificationAsRead: () => {},
 };
