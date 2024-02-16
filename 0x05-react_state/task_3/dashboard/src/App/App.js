@@ -36,23 +36,23 @@ class App extends Component {
       user: user,
       logOut: this.logOut,
       logIn: this.logIn,
+      listNotifications: [
+        { id: 1, type: 'default', value: 'New course available' },
+        { id: 2, type: 'urgent', value: 'New resume available' },
+        { id: 3, type: 'urgent', html: getLatestNotification() },
+      ],
     };
 
     this.handleDisplayDrawer = this.handleDisplayDrawer.bind(this);
     this.handleHideDrawer = this.handleHideDrawer.bind(this);
     this.logIn = this.logIn.bind(this);
     this.logOut = this.logOut.bind(this);
+    this.markNotificationAsRead = this.markNotificationAsRead.bind(this);
 
     this.listCourses = [
       { id: 1, name: 'ES6', credit: 60 },
       { id: 2, name: 'Webpack', credit: 20 },
       { id: 3, name: 'React', credit: 40 },
-    ];
-
-    this.listNotifications = [
-      { id: 1, type: 'default', value: 'New course available' },
-      { id: 2, type: 'urgent', value: 'New resume available' },
-      { id: 3, type: 'urgent', html: getLatestNotification() },
     ];
   }
 
@@ -104,6 +104,11 @@ class App extends Component {
     });
   };
 
+  markNotificationAsRead = (id) => {
+    const newList = this.state.listNotifications.filter((notification) => notification.id !== id);
+    this.setState({ listNotifications: newList });
+  };
+
   render() {
     return (
       <AppContext.Provider
@@ -114,10 +119,11 @@ class App extends Component {
       >
         <div className={css(styles.body)}>
           <Notifications
-            listNotifications={this.listNotifications}
+            listNotifications={this.state.listNotifications}
             displayDrawer={this.state.displayDrawer}
             handleDisplayDrawer={this.handleDisplayDrawer}
             handleHideDrawer={this.handleHideDrawer}
+            markNotificationAsRead={this.markNotificationAsRead}
           />
           <div>
             <Header />

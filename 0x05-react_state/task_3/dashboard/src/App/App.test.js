@@ -58,7 +58,7 @@ describe('<App />', () => {
     // Create a shallow rendered instance of the App component with the mock logOut function
     shallow(<App isLoggedIn={true} logOut={mockLogOut} />);
     // Mock the alert function
-    const mockAlert = jest.spyOn(window, 'alert').mockImplementation(() => {});
+    const mockAlert = jest.spyOn(window, 'alert').mockImplementation(() => { });
     // Simulate a keydown event with Ctrl + h
     const event = new KeyboardEvent('keydown', { key: 'h', ctrlKey: true });
     document.dispatchEvent(event);
@@ -76,14 +76,14 @@ describe('<App />', () => {
     expect(appComponent.state.displayDrawer).toBe(false);
   });
 
-  it('should update displayDrawer state to true after calling handleDisplayDrawer',() => {
+  it('should update displayDrawer state to true after calling handleDisplayDrawer', () => {
     const wrapper = shallow(<App />);
     const appComponent = wrapper.instance();
     appComponent.handleDisplayDrawer();
     expect(appComponent.state.displayDrawer).toBe(true);
   });
 
-  it('should update displayDrawer state to false after calling handleHideDrawer',() => {
+  it('should update displayDrawer state to false after calling handleHideDrawer', () => {
     const wrapper = shallow(<App />);
     const appComponent = wrapper.instance();
     appComponent.handleHideDrawer();
@@ -116,17 +116,47 @@ describe('<App />', () => {
     expect(appComponent.state.displayDrawer).toBe(false);
   });
 
-  it('should update displayDrawer state to true after calling handleDisplayDrawer',() => {
+  it('should update displayDrawer state to true after calling handleDisplayDrawer', () => {
     const wrapper = shallow(<App />);
     const appComponent = wrapper.instance();
     appComponent.handleDisplayDrawer();
     expect(appComponent.state.displayDrawer).toBe(true);
   });
 
-  it('should update displayDrawer state to false after calling handleHideDrawer',() => {
+  it('should update displayDrawer state to false after calling handleHideDrawer', () => {
     const wrapper = shallow(<App />);
     const appComponent = wrapper.instance();
     appComponent.handleHideDrawer();
     expect(appComponent.state.displayDrawer).toBe(false);
+  });
+  
+  it('updates state correctly when markNotificationAsRead is called', () => {
+    const wrapper = shallow(<App isLoggedIn={true} />);
+    const appComponent = wrapper.instance();
+
+    // Mock initial list of notifications
+    const initialNotifications = [
+      { id: 1, type: 'default', value: 'Notification 1' },
+      { id: 2, type: 'urgent', value: 'Notification 2' },
+      { id: 3, type: 'urgent', value: 'Notification 3' },
+    ];
+
+    // Set th initial state with the mock list of notifications
+    wrapper.setState({
+      listNotifications: initialNotifications,
+    });
+
+    // Call markNotificationAsRead with the id of a notification to mark as read
+    const notificationIdToMarkAsRead = 2;
+    appComponent.markNotificationAsRead(notificationIdToMarkAsRead);
+
+    // Get the updated state after calling markNotificationAsRead
+    const updateState = wrapper.state();
+
+    // Verify that the state has been updated correctly (the notification with the specified id is removed)
+    expect(updateState.listNotifications).toEqual([
+      { id: 1, type: 'default', value: 'Notification 1' },
+      { id: 3, type: 'urgent', value: 'Notification 3' },
+    ]);
   });
 });
