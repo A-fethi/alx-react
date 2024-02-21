@@ -1,6 +1,6 @@
-const Immutable = require('immutable');
+import { fromJS } from 'immutable';
 
 export default function accessImmutableObject(object, array) {
-    const Obj = Immutable.fromJS(object);
+    const Obj = fromJS(object);
     return Obj.getIn(array, undefined);
 };
