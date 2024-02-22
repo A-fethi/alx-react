@@ -1,11 +1,12 @@
-import { Seq, fromJS } from 'immutable';
+import { Seq } from 'immutable';
 
 export default function printBestStudents(object) {
-  const lazySeq = Seq(object)
-    .filter(student => student.get('score') >= 70)
-    .map(student =>
-      student.update('firstName', firstName => firstName.charAt(0).toUpperCase() + firstName.slice(1))
-        .update('lastName', lastName => lastName.charAt(0).toUpperCase() + lastName.slice(1))
-    );
-  console.log(fromJS(lazySeq).toJS());
+  const lazySeq = Seq(object);
+  const filtered = lazySeq.filter((student) => {
+    student.firstName = student.firstName.charAt(0).toUpperCase() + student.firstName.slice(1);
+    student.lastName = student.lastName.charAt(0).toUpperCase() + student.lastName.slice(1);
+    return student.score >= 70;
+  });
+  const JSObject = filtered.toJS();
+  console.log(JSObject);
 }
