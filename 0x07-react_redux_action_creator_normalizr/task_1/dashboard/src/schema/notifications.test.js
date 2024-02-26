@@ -68,6 +68,6 @@ describe('Test for notifications.js', () => {
             context: "3068c575-d619-40af-bf12-dece1ee18dd3",
             id: "5debd7642e815cd350407777",
         };
-        expect(normalized.entities.notification['5debd7642e815cd350407777']).toEqual(notificationDummy);
+        expect(normalized.entities.notifications['5debd7642e815cd350407777']).toEqual(notificationDummy);
     });
 });
