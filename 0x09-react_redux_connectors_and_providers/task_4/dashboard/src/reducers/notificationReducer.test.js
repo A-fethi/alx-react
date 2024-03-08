@@ -1,14 +1,14 @@
-import notificationReducer, { initialState } from "./notificationReducer";
+import notificationReducer, { initialNotificationState } from "./notificationReducer";
 import { MARK_AS_READ, SET_TYPE_FILTER, FETCH_NOTIFICATIONS_SUCCESS } from "../actions/notificationActionTypes";
 import { Map, List } from 'immutable';
 
 describe('Tests for notificationReducer', () => {
     it('should return the initial state', () => {
-        expect(notificationReducer(undefined, {})).toEqual(initialState);
+        expect(notificationReducer(undefined, {})).toEqual(initialNotificationState);
     });
 
     it('should handle MARK_AS_READ', () => {
-        const prevState = initialState.merge({
+        const prevState = initialNotificationState.merge({
             notifications: List([
                 Map({
                     id: 1,
@@ -31,7 +31,7 @@ describe('Tests for notificationReducer', () => {
             index: 2,
         };
 
-        const expectedState = initialState.merge({
+        const expectedState = initialNotificationState.merge({
             notifications: List([
                 Map({
                     id: 1,
@@ -53,7 +53,7 @@ describe('Tests for notificationReducer', () => {
     });
 
     it('should handle SET_TYPE_FILTER', () => {
-        const prevState = initialState.merge({
+        const prevState = initialNotificationState.merge({
             notifications: List([
                 Map({
                     id: 1,
@@ -76,7 +76,7 @@ describe('Tests for notificationReducer', () => {
             filter: 'URGENT',
         };
 
-        const expectedState = initialState.merge({
+        const expectedState = initialNotificationState.merge({
             notifications: List([
                 Map({
                     id: 1,
