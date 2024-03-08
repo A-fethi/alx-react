@@ -44,7 +44,7 @@ export class App extends Component {
       listNotifications: listNotifications,
     };
 
-    this.markNotificationAsRead = this.markNotificationAsRead.bind(this);
+    // this.markNotificationAsRead = this.markNotificationAsRead.bind(this);
 
     this.listCourses = [
       { id: 1, name: 'ES6', credit: 60 },
@@ -89,10 +89,10 @@ export class App extends Component {
   //   });
   // };
 
-  markNotificationAsRead = (id) => {
-    const newList = this.state.listNotifications.filter((notification) => notification.id !== id);
-    this.setState({ listNotifications: newList });
-  };
+  // markNotificationAsRead = (id) => {
+  //   const newList = this.state.listNotifications.filter((notification) => notification.id !== id);
+  //   this.setState({ listNotifications: newList });
+  // };
 
   render() {
     const { isLoggedIn, displayDrawer, displayNotificationDrawer, hideNotificationDrawer, login, logout } = this.props;
@@ -110,7 +110,7 @@ export class App extends Component {
             displayDrawer={displayDrawer}
             handleDisplayDrawer={displayNotificationDrawer}
             handleHideDrawer={hideNotificationDrawer}
-            markNotificationAsRead={this.markNotificationAsRead}
+            // markNotificationAsRead={this.markNotificationAsRead}
           />
           <div>
             <Header />

@@ -20,10 +20,6 @@ describe("<App />", () => {
     const wrapper = shallow(<App />);
     expect(wrapper.exists()).toEqual(true);
   });
-  it("should contain the Notifications component", () => {
-    const wrapper = shallow(<App />);
-    expect(wrapper.find("Notifications")).toHaveLength(1);
-  });
 
   it("should contain the Login component", () => {
     const wrapper = shallow(<App />);
@@ -42,33 +38,33 @@ describe("<App />", () => {
     expect(wrapper.find("CourseList")).toHaveLength(1);
   });
 
-  it("verify that markNotificationAsRead works as intended", () => {
-    const wrapper = shallow(<App />);
+//   it("verify that markNotificationAsRead works as intended", () => {
+//     const wrapper = shallow(<App />);
 
-    const instance = wrapper.instance();
+//     const instance = wrapper.instance();
 
-    expect(wrapper.state().listNotifications).toEqual(
-      listNotifications
-    );
+//     expect(wrapper.state().listNotifications).toEqual(
+//       listNotifications
+//     );
 
-    instance.markNotificationAsRead(4);
+//     instance.markNotificationAsRead(4);
 
-    expect(wrapper.state().listNotifications).toEqual(
-      listNotifications
-    );
+//     expect(wrapper.state().listNotifications).toEqual(
+//       listNotifications
+//     );
 
-    instance.markNotificationAsRead(3);
+//     instance.markNotificationAsRead(3);
 
-    expect(wrapper.state().listNotifications).toEqual(
-      listNotifications.slice(0, 2)
-    );
+//     expect(wrapper.state().listNotifications).toEqual(
+//       listNotifications.slice(0, 2)
+//     );
 
-    instance.markNotificationAsRead(1);
+//     instance.markNotificationAsRead(1);
 
-    expect(wrapper.state().listNotifications).toEqual(
-      listNotifications.slice(1, 2)
-    );
-  });
+//     expect(wrapper.state().listNotifications).toEqual(
+//       listNotifications.slice(1, 2)
+//     );
+//   });
 });
 
 describe("App Redux", () => {

@@ -2,8 +2,10 @@ import React, { PureComponent } from 'react';
 import closeIcon from './close-icon.png';
 import NotificationItem from './NotificationItem';
 import PropTypes from 'prop-types';
-import NotificationItemShape from './NotificationItemShape';
+// import NotificationItemShape from './NotificationItemShape';
 import { StyleSheet, css } from 'aphrodite';
+import { fetchNotifications } from '../actions/notificationActionCreators';
+import { connect } from 'react-redux';
 
 const fadeIn = {
     '0%': {
@@ -66,7 +68,15 @@ const styles = StyleSheet.create({
 });
 
 
-export default class Notifications extends PureComponent {
+export class Notifications extends PureComponent {
+    constructor(props) {
+        super(props);
+    }
+
+    componentDidMount() {
+        this.props.fetchNotifications();
+    }
+
     ButtonClick = () => {
         console.log('Close button has been clicked');
         this.props.handleHideDrawer();
@@ -84,29 +94,29 @@ export default class Notifications extends PureComponent {
         const { displayDrawer, listNotifications, handleDisplayDrawer, markNotificationAsRead } = this.props;
         return (
             <>
-                <div className={css(styles.menuItem)} onClick={handleDisplayDrawer}>
+                <div className={css(styles.menuItem)} id='menuItem' onClick={handleDisplayDrawer}>
                     <p>Your notifications</p>
                 </div>
                 {displayDrawer && (
-                    <div style={{ position: 'relative' }}>
+                    <div id='Notifications' style={{ position: 'relative' }}>
                         <>
                             {listNotifications && listNotifications.length !== 0 ? (
-                                <div className={css(styles.Notifications)}>
+                                <div className={css(styles.Notifications)} id='Notifications'>
                                     <p>Here is the list of notifications</p>
                                     <ul className={css(styles.ulNoPadding)}>
-                                        {listNotifications.map(({ id, html, type, value }) => (
-                                                <NotificationItem
-                                                    key={id}
-                                                    type={type}
-                                                    value={value}
-                                                    html={html}
-                                                    markAsRead={() => markNotificationAsRead(id)}
-                                                />
+                                        {listNotifications && Object.values(listNotifications).map(({ id, html, type, value }) => (
+                                            <NotificationItem
+                                                key={id}
+                                                type={type}
+                                                value={value}
+                                                html={html}
+                                                markAsRead={() => markNotificationAsRead(id)}
+                                            />
                                         ))}
                                     </ul>
                                 </div>
                             ) : (
-                                <p>No new notification for now</p>
+                                <NotificationItem type='noNotifications' value='No new notification for now' />
                             )}
                         </>
                         <button style={{
@@ -133,15 +143,26 @@ export default class Notifications extends PureComponent {
 
 Notifications.propTypes = {
     displayDrawer: PropTypes.bool,
-    listNotifications: PropTypes.arrayOf(NotificationItemShape),
+    listNotifications: PropTypes.object,
     handleDisplayDrawer: PropTypes.func,
     handleHideDrawer: PropTypes.func,
     markNotificationAsRead: PropTypes.func,
 };
 Notifications.defaultProps = {
     displayDrawer: false,
-    listNotifications: [],
-    handleDisplayDrawer: () => {},
-    handleHideDrawer: () => {},
-    markNotificationAsRead: () => {},
+    listNotifications: null,
+    handleDisplayDrawer: () => { },
+    handleHideDrawer: () => { },
+    markNotificationAsRead: () => { },
+    fetchNotifications: () => { }
 };
+
+const mapStateToProps = (state) => {
+    return {
+        listNotifications: state.notifications.get('messages'),
+    };
+};
+
+const mapDispatchToProps = { fetchNotifications, };
+
+export default connect(mapStateToProps, mapDispatchToProps)(Notifications);
