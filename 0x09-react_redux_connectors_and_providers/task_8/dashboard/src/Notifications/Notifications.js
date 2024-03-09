@@ -4,9 +4,9 @@ import NotificationItem from './NotificationItem';
 import PropTypes from 'prop-types';
 // import NotificationItemShape from './NotificationItemShape';
 import { StyleSheet, css } from 'aphrodite';
-import { fetchNotifications, markAsAread } from '../actions/notificationActionCreators';
+import { fetchNotifications, markAsAread, setNotificationFilter } from '../actions/notificationActionCreators';
 import { connect } from 'react-redux';
-import { getUnreadNotifications } from '../selectors/notificationSelector';
+import { getUnreadNotifications, getUnreadNotificationsByType } from '../selectors/notificationSelector';
 
 const fadeIn = {
     '0%': {
@@ -91,6 +91,14 @@ export class Notifications extends PureComponent {
     //     return nextProps.length > this.props.listNotifications.length;
     // }
 
+    setUrgentFilter = () => {
+        this.props.setNotificationFilter('urgent');
+    };
+
+    setDefaultFilter = () => {
+        this.props.setNotificationFilter('default');
+    };
+
     render() {
         const { displayDrawer, listNotifications, handleDisplayDrawer, markNotificationAsRead } = this.props;
         return (
@@ -104,6 +112,14 @@ export class Notifications extends PureComponent {
                             {listNotifications && listNotifications.length !== 0 ? (
                                 <div className={css(styles.Notifications)} id='Notifications'>
                                     <p>Here is the list of notifications</p>
+                                    <div>
+                                        <button onClick={this.setUrgentFilter} role="button" aria-label='Set Urgent Filter' >
+                                            !! Set Urgent Filter
+                                        </button>
+                                        <button onClick={this.setDefaultFilter} role="button" aria-label='Set Default Filter' >
+                                            💠 Set Default Filter
+                                        </button>
+                                    </div>
                                     <ul className={css(styles.ulNoPadding)}>
                                         {listNotifications && Object.values(listNotifications).map(({ id, html, type, value }) => (
                                             <NotificationItem
@@ -160,13 +176,14 @@ Notifications.defaultProps = {
 
 const mapStateToProps = (state) => {
     return {
-        listNotifications: getUnreadNotifications(state),
+        listNotifications: getUnreadNotificationsByType(state),
     };
 };
 
 const mapDispatchToProps = {
     fetchNotifications,
     markNotificationAsRead: markAsAread,
+    setNotificationFilter,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Notifications);
