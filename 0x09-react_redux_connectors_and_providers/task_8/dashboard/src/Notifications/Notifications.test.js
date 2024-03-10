@@ -126,5 +126,39 @@ describe('<Notifications />', () => {
 
             jest.restoreAllMocks();
         });
+
+        it("verify that the function fetchNotifications is called when the component is mounted", () => {
+            const fetchNotifications = jest.fn();
+            const handleHideDrawer = jest.fn();
+
+            const wrapper = shallow(
+                <Notifications fetchNotifications={fetchNotifications} />
+            );
+
+            expect(fetchNotifications).toHaveBeenCalled();
+
+            jest.restoreAllMocks();
+        });
+
+        // it("verify that clicking on the menu item calls handleDisplayDrawer", () => {
+        //     const setNotificationFilter = jest.fn();
+
+        //     const wrapper = shallow(
+        //         <Notifications
+        //             setNotificationFilter={setNotificationFilter}
+        //             displayDrawer={true}
+        //         />
+        //     );
+
+        //     wrapper.find("#buttonFilterUrgent").simulate("click");
+
+        //     expect(setNotificationFilter).toHaveBeenNthCalledWith(1, "URGENT");
+
+        //     wrapper.find("#buttonFilterDefault").simulate("click");
+
+        //     expect(setNotificationFilter).toHaveBeenNthCalledWith(2, "DEFAULT");
+
+        //     jest.restoreAllMocks();
+        // });
     });
 });

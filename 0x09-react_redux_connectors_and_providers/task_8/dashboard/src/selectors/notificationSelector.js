@@ -17,10 +17,19 @@ export const getUnreadNotificationsByType = createSelector(
             if (filter === "URGENT") {
                 filtered = messages
                     .valueSeq()
+                    .filter(
+                        (value) =>
+                            value.get("isRead") === false && value.get("type") === "urgent"
+                    );
+            } else {
+                filtered = messages
+                    .valueSeq()
                     .filter((value) => value.get("isRead") === false);
             }
+
             return filtered;
         }
+
         return messages;
     }
 );

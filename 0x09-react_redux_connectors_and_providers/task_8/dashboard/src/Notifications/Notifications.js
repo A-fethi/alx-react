@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import { StyleSheet, css } from 'aphrodite';
 import { fetchNotifications, markAsAread, setNotificationFilter } from '../actions/notificationActionCreators';
 import { connect } from 'react-redux';
-import { getUnreadNotifications, getUnreadNotificationsByType } from '../selectors/notificationSelector';
+import { getUnreadNotificationsByType } from '../selectors/notificationSelector';
 
 const fadeIn = {
     '0%': {
@@ -91,16 +91,16 @@ export class Notifications extends PureComponent {
     //     return nextProps.length > this.props.listNotifications.length;
     // }
 
-    setUrgentFilter = () => {
-        this.props.setNotificationFilter('urgent');
-    };
+    // setUrgentFilter = () => {
+    //     this.props.setNotificationFilter('urgent');
+    // };
 
-    setDefaultFilter = () => {
-        this.props.setNotificationFilter('default');
-    };
+    // setDefaultFilter = () => {
+    //     this.props.setNotificationFilter('default');
+    // };
 
     render() {
-        const { displayDrawer, listNotifications, handleDisplayDrawer, markNotificationAsRead } = this.props;
+        const { displayDrawer, listNotifications, handleDisplayDrawer, markNotificationAsRead, setNotificationFilter } = this.props;
         return (
             <>
                 <div className={css(styles.menuItem)} id='menuItem' onClick={handleDisplayDrawer}>
@@ -113,11 +113,11 @@ export class Notifications extends PureComponent {
                                 <div className={css(styles.Notifications)} id='Notifications'>
                                     <p>Here is the list of notifications</p>
                                     <div>
-                                        <button onClick={this.setUrgentFilter} role="button" aria-label='Set Urgent Filter' >
-                                            !! Set Urgent Filter
+                                        <button type='button' id='buttonFilterUrgent' onClick={() => {setNotificationFilter("URGENT");}} role="button" aria-label='Set Urgent Filter' >
+                                            !!
                                         </button>
-                                        <button onClick={this.setDefaultFilter} role="button" aria-label='Set Default Filter' >
-                                            💠 Set Default Filter
+                                        <button type='button' id='buttonFilterDefault' onClick={() => {setNotificationFilter("DEFAULT");}} role="button" aria-label='Set Default Filter' >
+                                            💠
                                         </button>
                                     </div>
                                     <ul className={css(styles.ulNoPadding)}>
@@ -164,14 +164,17 @@ Notifications.propTypes = {
     handleDisplayDrawer: PropTypes.func,
     handleHideDrawer: PropTypes.func,
     markNotificationAsRead: PropTypes.func,
+    setNotificationFilter: PropTypes.func,
 };
+
 Notifications.defaultProps = {
     displayDrawer: false,
     listNotifications: null,
     handleDisplayDrawer: () => { },
     handleHideDrawer: () => { },
     markNotificationAsRead: () => { },
-    fetchNotifications: () => { }
+    fetchNotifications: () => { },
+    setNotificationFilter: () => {}
 };
 
 const mapStateToProps = (state) => {
